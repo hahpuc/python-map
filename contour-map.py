@@ -5,18 +5,18 @@ import pygmt
 region = [120, 150, 20, 50]
 
 # Show Map
-figGMT = pygmt.Figure()
-figGMT.coast(
-    region= region,
-    projection="M15c",
-    land="lightgray",
-    water="white",
-    borders="1/0.5p",
-    shorelines="1/0.5p",
-)
+# figGMT = pygmt.Figure()
+# figGMT.coast(
+#     region= region,
+#     projection="M15c",
+#     land="lightgray",
+#     water="white",
+#     borders="1/0.5p",
+#     shorelines="1/0.5p",
+# )
 
-# Save the PyGMT figure to a file
-figGMT.savefig('map.png', transparent=True, dpi=300)
+# # Save the PyGMT figure to a file
+# figGMT.savefig('map.png', transparent=True, dpi=300)
 
 # Contour Data
 xlist = np.arange(120, 150, 1)
@@ -24,12 +24,7 @@ ylist = np.arange(20, 50, 1)
 
 dataCountour = np.random.randint(0, 40, size=(len(ylist), len(xlist)))
 
-# Load and display the PyGMT map within the Matplotlib plot
-img = plt.imread('map.png')
-
 fig, ax = plt.subplots(1, 1)
-
-ax.imshow(img, extent=region, aspect='equal', zorder=0)
 
 cp = ax.contourf(xlist, ylist, dataCountour, levels=10, cmap='viridis', alpha=0.5)
 fig.colorbar(cp)
@@ -38,8 +33,7 @@ ax.set_title('Filled Contours Plot')
 ax.set_xlabel('Longitude')
 ax.set_ylabel('Latitude')
 
-plt.show()
-
+plt.savefig('contour.png', transparent=True, dpi=300)
 
 
 # #Load Contour Data Map
