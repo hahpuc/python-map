@@ -11,7 +11,7 @@ Z = np.sin(np.sqrt(X ** 2 + Y ** 2))
 fig = pygmt.Figure()
 
 # Add a map view to the PyGMT figure
-fig.basemap(region=[-10, 10, -10, 10], projection="M6i", frame=True)
+fig.basemap(region=[-10, 10, -10, 10], projection="M10c", frame=True)
 fig.coast(shorelines=True, resolution='1', water='lightblue', land='lightgreen')
 
 # Save the PyGMT figure to a file

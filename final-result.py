@@ -40,10 +40,11 @@ fig.coast(
     projection="M12c",
     borders="1/0.5p",
     shorelines="1/0.5p",
+    water="lightblue",
     frame="ag",
     transparency=50,
 )
 
-fig.colorbar(frame=["x+lelevation", "y+lm"])
+fig.colorbar(frame=["x+lPolution", "y+lm"])
 
 fig.show()
