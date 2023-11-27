@@ -5,6 +5,9 @@ import xarray as xr
 
 fig = pygmt.Figure()
 
+# lat: 49
+# long: 41
+
 # Define the grid dimensions and spacing
 lon_min, lon_max, lat_min, lat_max = 102, 110, 8, 16
 lon_spacing, lat_spacing = 1, 1
@@ -13,8 +16,17 @@ region = [lon_min, lon_max, lat_min, lat_max]
 # Generate synthetic data (you can replace this with your own data)
 lons = np.arange(lon_min, lon_max, lon_spacing)
 lats = np.arange(lat_min, lat_max, lat_spacing)
-lons, lats = np.meshgrid(lons, lats)
-data = np.random.randint(0, 10, size=(len(lons), len(lats)))
+# lons, lats = np.meshgrid(lons, lats)
+
+# Load Data File
+file_data = "data.d"
+with open(file_data, "r") as file:
+    dataFile = [[int(num) for num in line.split()] for line in file]
+
+# data = np.random.randint(0, 10, size=(len(lons), len(lats)))
+data = np.array(dataFile)
+
+print(data)
 
 # Create xarray.DataArray
 grid_data_array = xr.DataArray(

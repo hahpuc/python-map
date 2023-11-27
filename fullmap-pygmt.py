@@ -5,19 +5,23 @@ import xarray as xr
 
 fig = pygmt.Figure()
 
-# grid = pygmt.datasets.load_earth_relief(resolution="05m", region="VN")
+# HARD CODE VIETNAM REGION
+region = [102, 110.1, 8, 17.8]
 
-region = [102, 110, 8, 24]
+## SET UP lat, long variables
+lat_min, lat_max = 8, 17.8
+lon_min, lon_max = 102, 110.1
 
-## SET UP DATA
-lat_min, lat_max = 8, 24
-lon_min, lon_max = 102, 110
+lat = np.arange(lat_min, lat_max, 0.2)
+lon = np.arange(lon_min, lon_max, 0.2)
 
-# create xr.DataArray
-lat = np.arange(lat_min, lat_max, 0.25)
-lon = np.arange(lon_min, lon_max, 0.25)
-# create random data array in shape (lat,lon)
-data = np.random.uniform(-5, 5, size=(len(lat), len(lon)))
+# Load Data File
+file_data = "data.d"
+with open(file_data, "r") as file:
+    dataFile = [[float(num) for num in line.split()] for line in file]
+
+data = np.array(dataFile)
+# data = np.random.uniform(-5, 5, size=(len(lat), len(lon)))
 
 grid = xr.DataArray(
     data=data,
@@ -28,12 +32,10 @@ grid = xr.DataArray(
     },
 )
 
-print(grid)
-
-## SHOW DATA 
+## SHOW DATA Contour
 fig.grdimage(
     grid=grid,
-    cmap="haxby",
+    cmap="viridis",
     projection="M12c",
 )
 fig.grdcontour(
@@ -41,14 +43,17 @@ fig.grdcontour(
     grid=grid,
     limit=[-4000, -2000],
 )
+
+## Show map line
 fig.coast(
-    region="VN",
+    region=region,
     projection="M12c",
     borders="1/0.5p",
     shorelines="1/0.5p",
     frame="ag",
 )
 
-fig.colorbar(frame=["x+lelevation", "y+lm"])
+# Set color bar bottom
+fig.colorbar(frame=["x+lContour DATA", "y+lm"])
 
 fig.show()
