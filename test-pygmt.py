@@ -67,16 +67,4 @@ with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack"):
         frame=True,
     )
 
-# fig.grdview(
-#     grid=topo_data_SEA,
-#     drapegrid=ds,  # xarray.DataArray containing values to use for colormap
-#     cmap=True,
-#     region=[lon_min, lon_max, lat_min, lat_max],
-#     projection=proj,
-#     surftype="i",
-#     shading=True,
-#     frame=True,
-# )
-
-
 fig.show()
