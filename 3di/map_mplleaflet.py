@@ -15,5 +15,6 @@ plt.title('Matplotlib Plot')
 
 # Alternatively, you can save the map to an HTML file
 
-mplleaflet.display(fig=plt.gcf(), tiles='cartodb_positron', crs=mplleaflet.crs.EPSG3857, path='output_map.html')
+# mplleaflet.display(fig=plt.gcf(), tiles='cartodb_positron', crs=mplleaflet.crs.EPSG3857, path='output_map.html')
+mplleaflet.show()
 
