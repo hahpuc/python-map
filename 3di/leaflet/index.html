@@ -20,24 +20,45 @@
     <div id="map"></div>
 
     <script>
-        // Initialize the map with a default view in Vietnam
-        var map = L.map('map').setView([14.0583, 108.2772], 12);
+        // Initialize the map
+        var map = L.map('map').setView([52.55509172663781, 4.730346372352345], 14);
 
         // Add a tile layer (in this case, OpenStreetMap tiles)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Example image URL and bounds (replace with your own)
-        var imageUrl = 'https://img.freepik.com/premium-vector/topographic-map-contour-lines-top-view_23-2148582768.jpg';
-        var imageBounds = [[14.0583, 108.2772], [14.1583, 108.3772]];
+        // GeoJSON data representing the bounding box
+        var geojsonData = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                type: 'Polygon',
+                coordinates: [
+                    [
+                        [4.716376372352345, 52.54509172663781],
+                        [4.716376372352345, 52.58032420234745],
+                        [4.749301792390481, 52.58032420234745],
+                        [4.749301792390481, 52.54509172663781],
+                        [4.716376372352345, 52.54509172663781]
+                    ]
+                ]
+            }
+        };
 
-        // Add the image overlay to the map
-        var imageOverLay = L.imageOverlay(imageUrl, imageBounds).addTo(map);
-        imageOverLay.setOpacity(0.5);
+        // URL to the image
+        var imageUrl = '../3di.png';
 
-        // Add a GeoJSON layer to the map
-        L.geoJSON(geoJsonData).addTo(map);
+        // Create a GeoJSON layer and add it to the map
+        L.geoJSON(geojsonData).addTo(map);
+
+        // Extract polygon bounds
+        var bounds = L.geoJSON(geojsonData).getBounds();
+
+        // Add the image overlay to the map within the polygon bounds
+        var imageOverlay = L.imageOverlay(imageUrl, bounds).addTo(map);
+        imageOverlay.setOpacity(0.5);
+
     </script>
 
 </body>
