@@ -15,12 +15,16 @@ plt.figure()
 xyc = ga.nodes.subset('2d_open_water').coordinates
 plt.plot(xyc[0], xyc[1], '.', label='2D open water')
 
+plt.gca().set_axis_off()
 plt.gcf().set_facecolor('none')
 plt.axis('off')
-
-print(plt.style.available)
-
-# plt.savefig('3di.png')
+plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0, 
+            hspace = 0, wspace = 0)
+plt.margins(0,0)
+plt.gca().xaxis.set_major_locator(plt.NullLocator())
+plt.gca().yaxis.set_major_locator(plt.NullLocator())
+plt.savefig("3di.png", bbox_inches = 'tight',
+    pad_inches = 0)
 
 plt.show()
 
