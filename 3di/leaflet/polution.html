@@ -32,8 +32,16 @@
 
         var url_to_geotiff_file = "https://georaster-layer-for-leaflet.s3.amazonaws.com/GHS_POP_E2015_GLOBE_R2019A_4326_9ss_V1_0.tif";
 
-        parseGeoraster(url_to_geotiff_file).then(georaster => {
+        Promise.all([
+            fetch("https://geoblaze.s3.amazonaws.com/City_of_Boston_Boundary.geojson").then(res => res.json()),
+            parseGeoraster(url_to_geotiff_file)
+        ]).then(async ([boundary, georaster]) => {
             console.log("georaster:", georaster);
+
+            const boundaryLayer = L.geoJson(boundary, { fillOpacity: 0 });
+            boundaryLayer.addTo(map);
+
+            map.fitBounds(boundaryLayer.getBounds());
 
             /*
                 GeoRasterLayer is an extension of GridLayer,
@@ -45,6 +53,7 @@
             */
             var scale = chroma.scale(['brown', 'orange', 'red']).domain([0, 100, 1000]);
 
+
             var layer = new GeoRasterLayer({
                 attribution: "European Commission: Global Human Settlement",
                 georaster: georaster,
@@ -55,7 +64,8 @@
                     if (population === -200) return;
                     if (population < 0) return;
                     return scale(population).hex();
-                }
+                },
+                mask: boundary
             });
             layer.addTo(map);
         });

@@ -4,7 +4,7 @@ from threedigrid.admin.gridadmin import GridH5Admin
 import os
 
 result_path = "./"
-nc = os.path.join(result_path,'aggregate_results_3di.nc')
+nc = os.path.join(result_path,'results_3di.nc')
 f = os.path.join(result_path,'gridadmin.h5')
 
 ga = GridH5Admin(f)
